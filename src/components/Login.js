@@ -11,14 +11,30 @@ class Login extends React.Component {
 	// 	event.preventDefault();
 	// 	console.log(this);
 	// 	alert(msg);
-	// };
+    // };
+    
+    state = {
+        email: '',
+        password: ''
+    }
 
     handleSubmit = event => {
         // 1. Prevent default behavior
         event.preventDefault();
 
-        // 4. go to product page
+        // 2. Get form data
+        console.log(this.state);
+
+        // 3. Handle login logic
+
+        // 4. Go to product page
         this.props.history.push('/');
+    };
+
+    handleChange = e => {
+        this.setState({
+            [e.target.name]: e.target.value
+        })
     };
 
 	render() {
@@ -31,21 +47,30 @@ class Login extends React.Component {
 				</a> */}
 
 				<form className="box login-box" onSubmit={this.handleSubmit}>
-					<div class="field">
-						<label class="label">Name</label>
-						<div class="control">
-							<input class="input" type="text" placeholder="e.g Alex Smith" />
+					<div className="field">
+						<label className="label">Email</label>
+						<div className="control">
+                            <input 
+                            className="input" 
+                            type="text" 
+                            placeholder="e.g. alexsmith@gmail.com" 
+                            name='email'
+                            value={this.state.email} 
+                            onChange={this.handleChange}/>
 						</div>
 					</div>
 
-					<div class="field">
-						<label class="label">Email</label>
-						<div class="control">
+					<div className="field">
+						<label className="label">Password</label>
+						<div className="control">
 							<input
-								class="input"
-								type="email"
-								placeholder="e.g. alexsmith@gmail.com"
-							/>
+								className="input"
+								type="password"
+                                placeholder="Password"
+                                name='password'
+                                value={this.state.password} 
+                                onChange={this.handleChange}
+                                />
 						</div>
 					</div>
 					<div className="control">
