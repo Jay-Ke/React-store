@@ -3,13 +3,6 @@ import ToolBox from "components/ToolBox";
 import Product from "components/Product";
 
 class Products extends React.Component {
-	// product = {
-	// 	name: "Air Jordan 4",
-	// 	image: "images/1.jpg",
-	// 	tags: "45 colors",
-	// 	price: "59440",
-	// 	status: "available",
-	// };
 	products = [
 		{
 			id: 1,
@@ -49,7 +42,7 @@ class Products extends React.Component {
 			image: "images/5.jpg",
 			tags: "45 colors",
 			price: "59440",
-			status: "available",
+			status: "unavailable",
 		},
 	];
 
@@ -67,21 +60,6 @@ class Products extends React.Component {
 								</div>
 							)
 						})}
-						{/* <div className="column is-3">
-							<Product product={this.product} />
-						</div>
-						<div className="column is-3">
-							<Product product={this.product} />
-						</div>
-						<div className="column is-3">
-							<Product product={this.product} />
-						</div>
-						<div className="column is-3">
-							<Product product={this.product} />
-						</div>
-						<div className="column is-3">
-							<Product product={this.product} />
-						</div> */}
 					</div>
 				</div>
 			</div>
