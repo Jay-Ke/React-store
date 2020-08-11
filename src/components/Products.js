@@ -1,51 +1,28 @@
 import React from "react";
+import axios from 'commons/axios';
 import ToolBox from "components/ToolBox";
 import Product from "components/Product";
 
 class Products extends React.Component {
-	products = [
-		{
-			id: 1,
-			name: "Air Jordan 4",
-			image: "images/1.jpg",
-			tags: "45 colors",
-			price: "59440",
-			status: "available",
-		},
-		{
-			id: 2,
-			name: "Air Jordan 4",
-			image: "images/2.jpg",
-			tags: "45 colors",
-			price: "59440",
-			status: "available",
-		},
-		{
-			id: 3,
-			name: "Air Jordan 4",
-			image: "images/3.jpg",
-			tags: "45 colors",
-			price: "59440",
-			status: "available",
-		},
-		{
-			id: 4,
-			name: "Air Jordan 4",
-			image: "images/4.jpg",
-			tags: "45 colors",
-			price: "59440",
-			status: "available",
-		},
-		{
-			id: 5,
-			name: "Air Jordan 4",
-			image: "images/5.jpg",
-			tags: "45 colors",
-			price: "59440",
-			status: "unavailable",
-		},
-	];
+    state = {
+        products: []
+    }
 
+    componentDidMount() {
+        // fetch('http://localhost:3003/products')
+        // .then(response => response.json())
+        // .then(data => {
+        //     this.setState({
+        //         products: data
+        //     });
+        // })
+        axios.get('/products')
+        .then(response => {
+            this.setState({
+                products: response.data
+            })
+        })
+    }
 	render() {
 		return (
 			<div>
@@ -53,7 +30,7 @@ class Products extends React.Component {
 				<ToolBox />
 				<div className="products">
 					<div className="columns is-multiline is-desktop">
-						{this.products.map((p) => {
+						{this.state.products.map((p) => {
 							return (
 								<div className="column is-3" key={p.id}>
 									<Product product={p} />
