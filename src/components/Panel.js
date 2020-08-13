@@ -40,12 +40,13 @@ class Panel extends React.Component {
 			<div className={_class[this.state.active]}>
 				{/* gray out area in the left */}
 				{/* close panel when click on gray out area */}
-				<div className="over-layer" onClick={this.close}></div>
+				{/* explicitly use arrow function to pass null parameter, otherwise it will pass some weird parameter  */}
+				<div className="over-layer" onClick={() => {this.close()}}></div>
 
 				{/* pop up panel */}
 				<div className="panel">
 					<div className="head">
-						<span className="close" onClick={this.close}>
+						<span className="close" onClick={() => {this.close()}}>
 							x
 						</span>
 						{/* <p className="has-text-centered">Child Compoenent</p> */}
