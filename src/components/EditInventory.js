@@ -1,9 +1,10 @@
 import React from "react";
-import axios from 'commons/axios';
+import axios from "commons/axios";
 import { toast } from "react-toastify";
 
-class AddInventory extends React.Component {
+class EditInventory extends React.Component {
 	state = {
+		id: "",
 		name: "",
 		price: "",
 		tags: "",
@@ -11,24 +12,36 @@ class AddInventory extends React.Component {
 		status: "available",
 	};
 
+	componentDidMount() {
+		const { id, name, image, tags, price, status } = this.props.product;
+		this.setState({
+			id,
+			name,
+			image,
+			tags,
+			price,
+			status,
+		});
+	}
+
 	handleChange = (e) => {
 		const value = e.target.value;
 		const name = e.target.name;
 
 		this.setState({
-			[name]: value
+			[name]: value,
 		});
 	};
 
 	submit = (e) => {
 		e.preventDefault();
-		const product = {...this.state};
-		axios.post('products', product).then(res => {
+		const product = { ...this.state };
+		axios.put(`products/${this.state.id}`, product).then((res) => {
 			console.log(res.data);
 			this.props.close(res.data);
 			// alert('Add success');
-			toast.success('Add Success');
-		})
+			toast.success("Edit Success");
+		});
 	};
 
 	render() {
@@ -104,7 +117,15 @@ class AddInventory extends React.Component {
 						</div>
 						<br />
 						<div className="control">
-							<button className="button" type="button" onClick={() => {this.props.close()}}>Cancel</button>
+							<button
+								className="button"
+								type="button"
+								onClick={() => {
+									this.props.close();
+								}}
+							>
+								Cancel
+							</button>
 						</div>
 					</div>
 				</form>
@@ -113,4 +134,4 @@ class AddInventory extends React.Component {
 	}
 }
 
-export default AddInventory;
+export default EditInventory;

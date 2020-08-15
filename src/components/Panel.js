@@ -5,30 +5,41 @@ import { render } from "react-dom";
 class Panel extends React.Component {
 	state = {
 		active: false,
-        component: null,
-        callback: () => {}
+		component: null,
+		callback: () => {},
 	};
 
 	// Tip: $r.open() in console can invoke the method
-	open = (options) => {
-        const { component, callback } = options;
-        const _key = new Date().getTime()
-        // Since component is passed in as a constructor, need to transform into component
-        // Set unique key to re-render the component everytime it get loaded.
-        const _component = React.createElement(component, {close: this.close, key: _key});
+	// Initialize default options
+	open = (
+		options = {
+			props: {},
+			component: null,
+			callback: () => {},
+		}
+	) => {
+		const { props, component, callback } = options;
+		const _key = new Date().getTime();
+		// Since component is passed in as a constructor, need to transform into component
+		// Set unique key to re-render the component everytime it get loaded.
+		const _component = React.createElement(component, {
+			...props,
+			close: this.close,
+			key: _key,
+		});
 		this.setState({
 			active: true,
-            component: _component,
-            callback: callback
+			component: _component,
+			callback: callback,
 		});
 	};
 
 	close = (data) => {
-        // alert(data);
+		// alert(data);
 		this.setState({
 			active: false,
-        });
-        this.state.callback(data);
+		});
+		this.state.callback(data);
 	};
 	render() {
 		const _class = {
@@ -41,12 +52,22 @@ class Panel extends React.Component {
 				{/* gray out area in the left */}
 				{/* close panel when click on gray out area */}
 				{/* explicitly use arrow function to pass null parameter, otherwise it will pass some weird parameter  */}
-				<div className="over-layer" onClick={() => {this.close()}}></div>
+				<div
+					className="over-layer"
+					onClick={() => {
+						this.close();
+					}}
+				></div>
 
 				{/* pop up panel */}
 				<div className="panel">
 					<div className="head">
-						<span className="close" onClick={() => {this.close()}}>
+						<span
+							className="close"
+							onClick={() => {
+								this.close();
+							}}
+						>
 							x
 						</span>
 						{/* <p className="has-text-centered">Child Compoenent</p> */}

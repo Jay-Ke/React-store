@@ -1,7 +1,25 @@
 import React from "react";
+import Panel from 'components/Panel';
+import EditInventory from "components/EditInventory";
 import { formatPrice } from "commons/helpers";
 
 class Product extends React.Component {
+
+	toEdit = () => {
+		Panel.open({
+			component: EditInventory,
+			props: {
+				product: this.props.product
+			},
+			callback: data => {
+				// console.log(data);
+				if (data) {
+					this.props.update(data);
+				}
+			}
+		})
+	}
+
 	render() {
 		const { name, image, tags, price, status } = this.props.product;
 
@@ -13,6 +31,11 @@ class Product extends React.Component {
 		return (
 			<div className={_pClass[status]}>
 				<div className="p-content">
+					<div className="p-head has-text-right" onClick={this.toEdit}>
+						<span className="icon edit-btn">
+							<i className="fas fa-sliders-h"></i>
+						</span>
+					</div>
 					<div className="img-wrapper">
 						{/* No need to logic check on status since CSS pattern define that logic */}
 						<div className="out-stock-text">Out of Sotck</div>
