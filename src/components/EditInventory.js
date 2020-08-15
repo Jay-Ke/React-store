@@ -44,6 +44,16 @@ class EditInventory extends React.Component {
 		});
 	};
 
+	onDelete = () => {
+		axios.delete(`products/${this.state.id}`).then((res) => {
+			console.log(res.data);
+			this.props.deleteProduct(this.state.id);
+			// this.props.close(res.data);
+			this.props.close();
+			toast.success("Delete Success");
+		});
+	};
+
 	render() {
 		return (
 			<div className="inventory">
@@ -114,6 +124,16 @@ class EditInventory extends React.Component {
 					<div className="field is-grouped is-grouped-centered">
 						<div className="control">
 							<button className="button is-link">Submit</button>
+						</div>
+						<div className="control">
+							{/* Need to add type, otherwise it will submit the form */}
+							<button
+								className="button is-danger"
+								type="button"
+								onClick={this.onDelete}
+							>
+								Delete
+							</button>
 						</div>
 						<br />
 						<div className="control">

@@ -9,7 +9,8 @@ class Product extends React.Component {
 		Panel.open({
 			component: EditInventory,
 			props: {
-				product: this.props.product
+				product: this.props.product,
+				deleteProduct: this.props.delete
 			},
 			callback: data => {
 				// console.log(data);

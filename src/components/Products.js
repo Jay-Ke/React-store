@@ -84,6 +84,15 @@ class Products extends React.Component {
 		});
 	};
 
+	delete = (id) => {
+		const _products = this.state.products.filter((p) => p.id !== id);
+		const _sProducts = this.state.sourceProducts.filter((p) => p.id !== id);
+		this.setState({
+			products: _products,
+			sourceProducts: _sProducts,
+		});
+	};
+
 	render() {
 		return (
 			<div>
@@ -104,7 +113,12 @@ class Products extends React.Component {
 										key={p.id}
 									>
 										<div className="column is-3" key={p.id}>
-											<Product product={p} update={this.update}/>
+											<Product
+												product={p}
+												update={this.update}
+												// Pass delete function to Product compoenent
+												delete={this.delete}
+											/>
 										</div>
 									</CSSTransition>
 								);
