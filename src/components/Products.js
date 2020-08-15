@@ -10,6 +10,7 @@ class Products extends React.Component {
 	state = {
 		products: [],
 		sourceProducts: [],
+		cartNum: 0,
 	};
 
 	componentDidMount() {
@@ -26,6 +27,7 @@ class Products extends React.Component {
 				sourceProducts: response.data,
 			});
 		});
+		this.updateCartNum();
 	}
 
 	search = (text) => {
@@ -93,12 +95,28 @@ class Products extends React.Component {
 		});
 	};
 
+	updateCartNum = async () => {
+		const cartNum = await this.initCartNum();
+		this.setState({
+			cartNum: cartNum,
+		});
+	};
+
+	initCartNum = async () => {
+		const res = await axios.get("/carts");
+		const carts = res.data || [];
+		const cartNum = carts
+			.map((cart) => cart.mount) // [2, 1,2 ]
+			.reduce((a, value) => a + value, 0);
+		return cartNum;
+	};
+
 	render() {
 		return (
 			<div>
 				{/* Product page consist of toolbox componend and product compoenet */}
 				{/* Pass search function to child component */}
-				<ToolBox search={this.search} />
+				<ToolBox search={this.search} cartNum={this.state.cartNum} />
 				<div className="products">
 					<div className="columns is-multiline is-desktop">
 						{/* Set component to null to avoid default div */}
@@ -118,6 +136,7 @@ class Products extends React.Component {
 												update={this.update}
 												// Pass delete function to Product compoenent
 												delete={this.delete}
+												updateCartNum={this.updateCartNum}
 											/>
 										</div>
 									</CSSTransition>
