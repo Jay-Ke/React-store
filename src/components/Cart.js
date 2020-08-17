@@ -9,12 +9,9 @@ const Cart = () => {
 
 	useEffect(() => {
 		axios.get("/carts").then((res) => {
-			// this.setState({
-			// 	carts: res.data,
-			// });
 			setCarts(res.data);
 		});
-    });
+    }, []); // fix infinitely get request issue, pass empty [] is equaivalenet to componenetDidAmount(), only execute once
     
     const totalPrice = () => {
         const totalPrice = carts
