@@ -22,10 +22,15 @@ const CartItem = (props) => {
 		});
 	};
 
+	const deleteCart = () => {
+		axios.delete(`/carts/${id}`).then((res) => {
+			props.deleteCart(props.cart);
+		});
+	};
+
 	return (
-		<div className="columns is-vcentered">
-			{/* <p>Cart Item</p> */}
-			<div className="column is-narrow">
+		<div className="columns is-vcentered">			
+			<div className="column is-narrow" onClick={deleteCart}>
 				<span className="close">X</span>
 			</div>
 			<div className="column is-narrow">

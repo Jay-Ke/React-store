@@ -29,16 +29,23 @@ const Cart = () => {
 		setCarts(newCarts);
 	};
 
+	const deleteCart = (cart) => {
+		const _carts = carts.filter((c) => c.id !== cart.id);
+		setCarts(_carts);
+	};
+
 	return (
 		<Layout>
 			<div className="cart-page">
 				<span className="cart-title">Shopping Cart</span>
 				<div className="cart-list">
-					{/* <CartItem />
-					<CartItem />
-					<CartItem /> */}
 					{carts.map((cart) => (
-						<CartItem key={cart.id} cart={cart} updateCart={updateCart} />
+						<CartItem
+							key={cart.id}
+							cart={cart}
+							updateCart={updateCart}
+							deleteCart={deleteCart}
+						/>
 					))}
 				</div>
 				<div className="cart-total">
