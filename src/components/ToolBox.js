@@ -1,4 +1,7 @@
 import React from "react";
+// import {Link} from 'react-router-dom';
+// import withRouter because only path defined in Router.js can get history
+import {withRouter} from 'react-router-dom';
 
 class ToolBox extends React.Component {
     state = {
@@ -22,6 +25,10 @@ class ToolBox extends React.Component {
         this.props.search('');
     }
 
+    goCart = () => {
+        this.props.history.push('/cart');
+    }
+
 	render() {
 		return (
 			<div className="tool-box">
@@ -41,7 +48,9 @@ class ToolBox extends React.Component {
                         </div>
                     </div>
                 </div>
-                <div className="cart-box">
+                {/* Can also use <Link to="/cart"></Link> to jump to cart page */}
+                <div className="cart-box" onClick={this.goCart}>
+                {/* <div to="/cart" className="cart-box" onClick={this.goCart}> */}
                     <i className="fas fa-shopping-cart"></i>
                     <span className="cart-num">({this.props.cartNum})</span>
                 </div>
@@ -50,4 +59,4 @@ class ToolBox extends React.Component {
 	}
 }
 
-export default ToolBox;
+export default withRouter(ToolBox);

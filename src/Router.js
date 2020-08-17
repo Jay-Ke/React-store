@@ -3,12 +3,14 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import App from "components/App";
 import Login from "components/Login";
 import NotFound from "components/NotFound";
+import Cart from "components/Cart";
 
 const Router = () => (
 	<BrowserRouter>
 		<Switch>
 			<Route path="/" exact component={App} />
 			<Route path="/login" component={Login} />
+			<Route path="/cart" component={Cart} />
 			<Route component={NotFound} />
 		</Switch>
 	</BrowserRouter>
