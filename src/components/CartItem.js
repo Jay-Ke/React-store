@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import axios from "commons/axios";
 import { formatPrice } from "commons/helpers";
 
@@ -8,7 +8,12 @@ const CartItem = (props) => {
 	const [mount, setMount] = useState(props.cart.mount);
 
 	const { id, name, image, price } = props.cart || {};
-	const sumPrice = formatPrice(mount * parseInt(price));
+    // const sumPrice = formatPrice(mount * parseInt(price));
+    // Optimize function call, using the above one may get invoked when other state variable is updated and page is re-rendered.
+    // Using memo, the function will only get invoked when [mount, price] change.
+	const sumPrice = useMemo(() => {
+		return formatPrice(mount * parseInt(price));
+	}, [mount, price]);
 
 	const handleChange = (e) => {
 		const _mount = parseInt(e.target.value);
@@ -29,7 +34,7 @@ const CartItem = (props) => {
 	};
 
 	return (
-		<div className="columns is-vcentered">			
+		<div className="columns is-vcentered">
 			<div className="column is-narrow" onClick={deleteCart}>
 				<span className="close">X</span>
 			</div>
